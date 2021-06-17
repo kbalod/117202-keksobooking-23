@@ -21,4 +21,4 @@ function rnd(min, max, precision) {
 
 console.log(rnd(5, 10,2));
 
-// https://basicweb.ru/javascript/js_math_random.php
+// https://basicweb.ru/javascript/js_math_random.php тест 
