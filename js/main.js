@@ -13,7 +13,7 @@ console.log(getRandomIntFromRange(5, 10));
 function rnd(min, max, precision) {
   if (min >= 0 && max >= min) {
   const value = Math.random();
-  retrutn value.toFixed(precision)
+  return value.toFixed(precision)
   }else{
     console.log('error');
   }
