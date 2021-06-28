@@ -6,7 +6,7 @@ const MAX_Y = 139;
 const NumZero = 5;
 
 const AVATAR_URL_FORMAT = 'img/avatars/user0{{x}}.png';
-const TITLES = ['1','2','3'];
+const TITLES = ['1', '2', '3'];
 const APARTMENT_TYPES = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
 const MIN_ROOM_NUMBER = 1;
 const MAX_ROOM_NUMBER = 5;
@@ -21,61 +21,60 @@ const MAX_PRICE = 100;
 let object = [];
 
 function rnd(min, max, precision) {
-  if (min >= 0 && max >= min) {
-    const value = Math.random();
-    return value.toFixed(precision);}
+	if (min >= 0 && max >= min) {
+		const value = Math.random();
+		return value.toFixed(precision);
+	}
 }
 
 function random(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
+	return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 function getRandomArrayItem(array) {
-  let index = random(0, array.length - 1);
-  return array[index];
+	let index = random(0, array.length - 1);
+	return array[index];
 }
 
 function shuffleArraySlice(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    let swapIndex = random(0, i);
-    let currentItem = array[i];
-    array[i] = array[swapIndex];
-    array[swapIndex] = currentItem;
-  }
-  array.splice(1, random(0, array.length))
-  return array;
+	for (let i = array.length - 1; i > 0; i--) {
+		let swapIndex = random(0, i);
+		let currentItem = array[i];
+		array[i] = array[swapIndex];
+		array[swapIndex] = currentItem;
+	}
+	array.splice(1, random(0, array.length));
+	return array;
 }
 
-  function getRandomApartment(index) {
-    let result = {
-      'author': {
-        'avatar': AVATAR_URL_FORMAT.replace('{{x}}', index + 1)
-      },
-      'offer': {
-        'title': getRandomArrayItem(TITLES),
-        'address': '',
-        'price': random(MIN_PRICE, MAX_PRICE),
-        'type': getRandomArrayItem(APARTMENT_TYPES),
-        'rooms': random(MIN_ROOM_NUMBER, MAX_ROOM_NUMBER),
-        'guests': random(MIN_GUAESTS_ALLOWED, MAX_GUAESTS_ALLOWED),
-        'checkin': getRandomArrayItem(CHECK_IN_TIMES),
-        'checkout': getRandomArrayItem(CHECK_OUT_TIMES),
-        'features': shuffleArraySlice(FEATURES),
-        'description': '',
-        'photos': shuffleArraySlice(PHOTOS_URL)
-      },
-      'location': {
-        lat: rnd(MIN_X, MAX_X, NumZero),
-        lng: rnd(MIN_Y, MAX_Y, NumZero)
-      },
-    };
-      result.offer.address = result.location.lat + ', ' + result.location.lng;
-      object.push(result);
-    return result;
 
-  };
+function getRandomApartment(index) {
+	let result = {
+		'author': {
+			'avatar': AVATAR_URL_FORMAT.replace('{{x}}', index + 1)
+		},
+		'offer': {
+			'title': getRandomArrayItem(TITLES),
+			'address': '',
+			'price': random(MIN_PRICE, MAX_PRICE),
+			'type': getRandomArrayItem(APARTMENT_TYPES),
+			'rooms': random(MIN_ROOM_NUMBER, MAX_ROOM_NUMBER),
+			'guests': random(MIN_GUAESTS_ALLOWED, MAX_GUAESTS_ALLOWED),
+			'checkin': getRandomArrayItem(CHECK_IN_TIMES),
+			'checkout': getRandomArrayItem(CHECK_OUT_TIMES),
+			'features': shuffleArraySlice(FEATURES),
+			'description': '',
+			'photos': shuffleArraySlice(PHOTOS_URL)
+		},
+		'location': {
+			lat: rnd(MIN_X, MAX_X, NumZero),
+			lng: rnd(MIN_Y, MAX_Y, NumZero)
+		},
+	};
+	result.offer.address = result.location.lat + ', ' + result.location.lng;
+	return result;
 
-for (let i = 0;i < 9;i++){
-  getRandomApartment(i);
+}
 
-};
+object = new Array(9).fill(null).map(() => getRandomApartment());
+
