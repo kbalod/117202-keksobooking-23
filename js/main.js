@@ -1,51 +1,81 @@
-function getRandomIntFromRange(min, max) {
-  if (min >= 0 && max > min) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min)) + min;
-  } else {
-    console.error('error');
-  }
-}
+//Координаты карты
+const MIN_X = 35;
+const MAX_X = 35;
+const MIN_Y = 139;
+const MAX_Y = 139;
+const NumZero = 5;
 
-console.log(getRandomIntFromRange(5, 10));
+const AVATAR_URL_FORMAT = 'img/avatars/user0{{x}}.png';
+const TITLES = ['1','2','3'];
+const APARTMENT_TYPES = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
+const MIN_ROOM_NUMBER = 1;
+const MAX_ROOM_NUMBER = 5;
+const MIN_GUAESTS_ALLOWED = 1;
+const MAX_GUAESTS_ALLOWED = 5;
+const CHECK_IN_TIMES = ['12:00', '13:00', '14:00'];
+const CHECK_OUT_TIMES = ['12:00', '13:00', '14:00'];
+const FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+const PHOTOS_URL = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
+const MIN_PRICE = 1;
+const MAX_PRICE = 100;
+let object = [];
 
 function rnd(min, max, precision) {
   if (min >= 0 && max >= min) {
     const value = Math.random();
-    return value.toFixed(precision);
-  }else{
-    console.log('error');
+    return value.toFixed(precision);}
+}
+
+function random(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+function getRandomArrayItem(array) {
+  let index = random(0, array.length - 1);
+  return array[index];
+}
+
+function shuffleArraySlice(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    let swapIndex = random(0, i);
+    let currentItem = array[i];
+    array[i] = array[swapIndex];
+    array[swapIndex] = currentItem;
   }
+  array.splice(1, random(0, array.length))
+  return array;
 }
 
-console.log(rnd(5, 10,2));
+  function getRandomApartment(index) {
+    let result = {
+      'author': {
+        'avatar': AVATAR_URL_FORMAT.replace('{{x}}', index + 1)
+      },
+      'offer': {
+        'title': getRandomArrayItem(TITLES),
+        'address': '',
+        'price': random(MIN_PRICE, MAX_PRICE),
+        'type': getRandomArrayItem(APARTMENT_TYPES),
+        'rooms': random(MIN_ROOM_NUMBER, MAX_ROOM_NUMBER),
+        'guests': random(MIN_GUAESTS_ALLOWED, MAX_GUAESTS_ALLOWED),
+        'checkin': getRandomArrayItem(CHECK_IN_TIMES),
+        'checkout': getRandomArrayItem(CHECK_OUT_TIMES),
+        'features': shuffleArraySlice(FEATURES),
+        'description': '',
+        'photos': shuffleArraySlice(PHOTOS_URL)
+      },
+      'location': {
+        lat: rnd(MIN_X, MAX_X, NumZero),
+        lng: rnd(MIN_Y, MAX_Y, NumZero)
+      },
+    };
+      result.offer.address = result.location.lat + ', ' + result.location.lng;
+      object.push(result);
+    return result;
 
-//author, объект — описывает автора. Содержит одно поле:
-  //avatar, строка — адрес изображения вида img/avatars/user{{xx}}.png, где {{xx}} — это число от 1 до 10. Перед однозначными числами ставится 0. Например, 01, 02...10. Адреса изображений не повторяются.
+  };
 
-//offer, объект — содержит информацию об объявлении. Состоит из полей:
-  //title, строка — заголовок предложения. Придумайте самостоятельно.
-  //address, ястрока — адрес предложени. Для простоты пусть пока составляется из географических координат по маске {{location.lat}}, {{location.lng}}.
-  //price, число — стоимость. Случайное целое положительное число.
-  //type, строка — одно из пяти фиксированных значений: palace, flat, house, bungalow или hotel.
-  //rooms, число — количество комнат. Случайное целое положительное число.
-  //guests, число — количество гостей, которое можно разместить. Случайное целое положительное число.
-  //checkin, строка — одно из трёх фиксированных значений: 12:00, 13:00 или 14:00.
-  //checkout, строка — одно из трёх фиксированных значений: 12:00, 13:00 или 14:00.
-  //features, массив строк — массив случайной длины из значений: wifi, dishwasher, parking, washer, elevator, conditioner. Значения не должны повторяться.
-  //description, строка — описание помещения. Придумайте самостоятельно.
-  //photos, массив строк — массив случайной длины из значений: https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg, https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg, https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg.
+for (let i = 0;i < 9;i++){
+  getRandomApartment(i);
 
-//location, объект — местоположение в виде географических координат. Состоит из двух полей:
-  //lat, число с плавающей точкой — широта, случайное значение от 35.65000 до 35.70000.
-  //lng, число с плавающей точкой — долгота, случайное значение от 139.70000 до 139.80000.//
-
-let offer = {
-  title : '',
-  address : 'location.lat' +',' + 'location.lng',
-  price : function getRandomIntFromRange,
-  rooms : function rnd,
-}
-
-let type = [palace, flat, house, bungalow, hotel];
+};
