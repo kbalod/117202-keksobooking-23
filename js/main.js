@@ -4,8 +4,6 @@ const MAX_X = 35;
 const MIN_Y = 139;
 const MAX_Y = 139;
 const NumZero = 5;
-
-const AVATAR_URL_FORMAT = 'img/avatars/user0{{x}}.png';
 const TITLES = ['1', '2', '3'];
 const APARTMENT_TYPES = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
 const MIN_ROOM_NUMBER = 1;
@@ -18,7 +16,7 @@ const FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'condit
 const PHOTOS_URL = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
 const MIN_PRICE = 1;
 const MAX_PRICE = 100;
-let object = [];
+const object = [];
 
 function rnd(min, max, precision) {
   if (min >= 0 && max >= min) {
@@ -43,15 +41,20 @@ function shuffleArraySlice(array) {
     array[i] = array[swapIndex];
     array[swapIndex] = currentItem;
   }
-  array.splice(1, random(0, array.length));
-  return array;
+  return array.slice(0, random(0, array.length));
 }
 
-
 function getRandomApartment(index) {
+  let avatarUrl = '';
+
+  if (index < 10) {
+    avatarUrl = 'img/avatars/user0' + index + '.png';
+  } else {
+    avatarUrl = 'img/avatars/user' + index + '.png';
+  }
   const result = {
     'author': {
-      'avatar': AVATAR_URL_FORMAT.replace('{{x}}', index + 1),
+      'avatar': avatarUrl,
     },
     'offer': {
       'title': getRandomArrayItem(TITLES),
@@ -71,10 +74,12 @@ function getRandomApartment(index) {
       lng: rnd(MIN_Y, MAX_Y, NumZero),
     },
   };
-  result.offer.address = `${result.location.lat  }, ${  result.location.lng}`;
-  return result;
+  result.offer.address = result.location.lat + ', ' + result.location.lng;
 
+  return result;
 }
 
-object = new Array(9).fill(null).map(() => getRandomApartment());
-
+for (let i = 1; i <= 10; i++) {
+  const apartment = getRandomApartment(i);
+  object.push(apartment);
+}
