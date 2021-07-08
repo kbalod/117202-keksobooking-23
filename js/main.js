@@ -1,4 +1,4 @@
-import {getRandomApartment} from './data';
+import {getRandomApartment} from './data.js';
 
 const object = [];
 

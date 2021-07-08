@@ -1,4 +1,4 @@
-import { rnd, random, getRandomArrayItem, shuffleArraySlice } from './util';
+import { rnd, random, getRandomArrayItem, shuffleArraySlice } from './util.js';
 
 const MIN_X = 35;
 const MAX_X = 35;
