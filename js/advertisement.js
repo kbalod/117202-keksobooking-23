@@ -17,14 +17,14 @@ export function similarAdv(adv) {
   advElement.querySelector('.popup__text--capacity').textContent = `${adv.offer.rooms  } комнаты для ${  adv.offer.guests  } гостей`;
   advElement.querySelector('.popup__text--time').textContent = `Заезд после ${  adv.offer.checkin  }, выезд до ${  adv.offer.checkout}`;
   const modifiers = adv.offer.features.map((feature) => `popup__feature--${feature}`);
-  advElement.querySelector('.popup__features').forEach((item)=>{
+  advElement.querySelectorAll('.popup__features').forEach((item)=>{
     if (! modifiers.includes(item.classList[1])){
       item.remove();
     }
   });
   advElement.querySelector('.popup__description').textContent = adv.offer.description;
   advElement.querySelector('.popup__photos').textContent = adv.offer.photos.map((photo) => `<img src = '${photo}'>`);
-  advElement.querySelector('.author.avatar').src = adv.author.avatar;
+  advElement.querySelector('.popup__avatar').src = adv.author.avatar;
   document.querySelector('#map-canvas').appendChild(advElement);
 }
 

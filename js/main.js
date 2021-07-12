@@ -7,5 +7,5 @@ for (let i = 1; i <= 10; i++) {
   object.push(apartment);
 }
 
-similarAdv(object);
+similarAdv(object[0]);
 
