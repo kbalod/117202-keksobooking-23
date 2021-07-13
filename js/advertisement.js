@@ -23,7 +23,7 @@ export function similarAdv(adv) {
     }
   });
   advElement.querySelector('.popup__description').textContent = adv.offer.description;
-  advElement.querySelector('.popup__photos').innerHTML = adv.offer.photos.map((photo) => `<img src = '${photo}'>`);
+  advElement.querySelector('.popup__photos').innerHTML = adv.offer.photos.map((photo) => `<img src='${photo}' class="popup__photo" width="45" height="40"`);
   advElement.querySelector('.popup__avatar').src = adv.author.avatar;
   document.querySelector('#map-canvas').appendChild(advElement);
 }
